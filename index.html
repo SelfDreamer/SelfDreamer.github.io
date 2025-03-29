@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flick.sh</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.light-mode {
+            background: #ffffff;
+            color: #000000;
+        }
+        body.dark-mode {
+            background: #121212;
+            color: #ffffff;
+        }
+        .switch-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .Cinnamoroll {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+        }
+        .titulo {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .badge-container {
+            margin-top: 20px;
+        }
+        .badge {
+            font-size: 18px;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            background-color: #24292e;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: transform 0.3s ease-out, background-color 0.3s;
+            cursor: pointer;
+            margin: 2px;
+        }
+        .badge img {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+        .badge:hover {
+          background-color: #555;
+        }
+        .badge:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://readme-typing-svg.demolab.com/?font=Iosevka&size=16&pause=1000&color=9D7CD8&center=true&vCenter=true&width=435&lines=Cybersecurity%20enthusiast%20and%20web%20hacking%20lover" alt="Texto animado" class="titulo">
+    <img src="./images/Cinnamoroll.jpg" alt="Descripción" class="Cinnamoroll">
+    <div class="badge-container">
+        <a href="https://github.com/FlickGMD" target="_blank" class="badge">
+            <img src="https://github.com/fluidicon.png" alt="GitHub Logo">
+            <span>GitHub</span>
+        </a>
+        <a href="https://www.instagram.com/tu_usuario" target="_blank" class="badge instagram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+            <span>Instagram</span>
+        </a>
+        <a href="https://www.youtube.com/@tu_canal" target="_blank" class="badge youtube">
+            <img src="./images/youtube.png" alt="YouTube Logo">
+            <span>YouTube</span>
+        </a>
+    </div>    
+<div class="switch-container">
+        <label class="switch">
+            <input type="checkbox" id="themeSwitch">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <script src='./scripts/switch.js'></script>
+</body>
+</html>
+
