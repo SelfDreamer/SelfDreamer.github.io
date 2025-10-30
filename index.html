@@ -3,11 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
+    <meta name="color-scheme" content="dark">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
     <script src="scripts/message-box.js" type="module"></script>
     <title>Dreamer</title>
     <style>
+        /* Fondo base */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#021027, #000000);
+            z-index: -3;
+        }
+
+        /* Efecto de linterna */
+        .flashlight-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(
+                    circle 1500px at 50% 50%,
+                    rgba(255, 255, 255, 0.07) 0%,
+                    rgba(255, 255, 255, 0.04) 20%,
+                    rgba(255, 255, 255, 0.015) 40%,
+                    transparent 75%
+                ),
+                transparent;
+            z-index: -1;
+            transition: background 0.2s ease-out;
+            pointer-events: none;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -22,250 +55,249 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(9px);
             -webkit-backdrop-filter: blur(9px);
-            overflow:hidden;
-        }
-
-        body {
-          opacity: 0;
-          transform: translateY(100px);
-          animation: slideUp 0.8s ease-out forwards;
-        }
-
-        @keyframes slideUp {
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        body.light-mode {
-            background: #ffffff;
-            color: #000000;
-        }
-        body.dark-mode {
-            background: #121212;
-            color: #ffffff;
-        }
-        .switch-container {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-        }
-        .switch {
+            overflow: hidden;
             position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
         }
-        .switch input {
+
+        /* Contenedor principal de widgets */
+        .widgets-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
-            width: 0;
-            height: 0;
+            transform: translateY(120px);
+            animation: widgetsSlideUp 0.8s ease-out 0.3s forwards;
         }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.4s;
-            border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: #007bff;
-        }
-        input:checked + .slider:before {
-            transform: translateX(26px);
+
+        @keyframes widgetsSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .Cinnamoroll {
-          --border-size: 5px;
-          --border-angle: 0turn;
+            --border-size: 5px;
+            --border-angle: 0turn;
 
-          width: 250px;
-          height: 250px;
-          border-radius: 50%;
-          object-fit: cover;
-          padding: var(--border-size);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            padding: var(--border-size);
 
-          background:
-            conic-gradient(from var(--border-angle), transparent 10%, #08f, #f03, #08f);
+            background:
+                conic-gradient(from var(--border-angle), transparent 10%, #08f, #f03, #08f);
 
-          animation: bg-spin 3s linear infinite;
-          background-origin: border-box;
-          background-clip: border-box;
-          position: relative;
-          z-index: 1;
+            animation: bg-spin 3s linear infinite;
+            background-origin: border-box;
+            background-clip: border-box;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Hacemos que la imagen esté dentro del círculo, sin tapar el borde */
         .Cinnamoroll::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          border-radius: 50%;
-          padding: var(--border-size);
-          background: conic-gradient(from var(--border-angle), #213, #112 50%, #213),
-                      conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
-          -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--border-size)), white calc(100% - var(--border-size)));
-          mask: radial-gradient(farthest-side, transparent calc(100% - var(--border-size)), white calc(100% - var(--border-size)));
-          -webkit-mask-composite: source-out;
-          mask-composite: exclude;
-          pointer-events: none;
-          z-index: -1;
-          animation: bg-spin 3s linear infinite;
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: var(--border-size);
+            background: conic-gradient(from var(--border-angle), #213, #112 50%, #213),
+                        conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--border-size)), white calc(100% - var(--border-size)));
+            mask: radial-gradient(farthest-side, transparent calc(100% - var(--border-size)), white calc(100% - var(--border-size)));
+            -webkit-mask-composite: source-out;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: -1;
+            animation: bg-spin 3s linear infinite;
         }
 
         @keyframes bg-spin {
-          to { --border-angle: 1turn; }
+            to { --border-angle: 1turn; }
         }
 
         @property --border-angle {
-          syntax: "<angle>";
-          inherits: true;
-          initial-value: 0turn;
+            syntax: "<angle>";
+            inherits: true;
+            initial-value: 0turn;
         }
 
         .titulo {
             display: block;
             margin: 0 auto;
             text-align: center;
+            z-index: 10;
+            margin-bottom: 20px;
         }
-        .badge-container {
-            margin-top: 20px;
-        }
-        .badge {
-            font-size: 18px;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: inline-flex;
+
+        .ctk-button {
             align-items: center;
-            background-color: #24292e;
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: transform 0.3s ease-out, background-color 0.3s;
+            appearance: none;
+            background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+            border: 0;
+            border-radius: 6px;
+            box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+            color: #fff;
             cursor: pointer;
-            margin: 2px;
+            display: inline-flex;
+            font-family: "JetBrains Mono",monospace;
+            height: 48px;
+            justify-content: center;
+            line-height: 1;
+            list-style: none;
+            overflow: hidden;
+            padding-left: 16px;
+            padding-right: 16px;
+            position: relative;
+            text-align: left;
+            text-decoration: none;
+            transition: box-shadow .15s,transform .15s;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            will-change: box-shadow,transform;
+            font-size: 18px;
+            margin-top: 20px;
+            z-index: 10;
         }
-        .badge img {
-            width: 24px;
-            height: 24px;
-            margin-right: 5px;
-        }
-        .badge:hover {
-          background-color: #555;
-        }
-        .badge:active {
-            transform: scale(0.95);
+
+        .ctk-button:focus {
+            box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
         }
 
-      .ctk-button {
-        align-items: center;
-        appearance: none;
-        background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
-        border: 0;
-        border-radius: 6px;
-        box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
-        color: #fff;
-        cursor: pointer;
-        display: inline-flex;
-        font-family: "JetBrains Mono",monospace;
-        height: 48px;
-        justify-content: center;
-        line-height: 1;
-        list-style: none;
-        overflow: hidden;
-        padding-left: 16px;
-        padding-right: 16px;
-        position: relative;
-        text-align: left;
-        text-decoration: none;
-        transition: box-shadow .15s,transform .15s;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        white-space: nowrap;
-        will-change: box-shadow,transform;
-        font-size: 18px;
-        margin-top: 40px
-      }
+        .ctk-button:hover {
+            box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+            transform: translateY(-2px);
+        }
 
-      .ctk-button:focus {
-        box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-      }
+        .ctk-button:active {
+            box-shadow: #3c4fe0 0 3px 7px inset;
+            transform: translateY(2px);
+        }
 
-      .ctk-button:hover {
-        box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-        transform: translateY(-2px);
-      }
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
 
-      .ctk-button:active {
-        box-shadow: #3c4fe0 0 3px 7px inset;
-        transform: translateY(2px);
-      }
+        /* Estilo para el contenedor de mensajes */
+        .messages-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
 
-      .botones {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-      }
+        .messages-container > * {
+            pointer-events: all;
+        }
 
     </style>
 </head>
 <body>
 
-    <img src="https://readme-typing-svg.demolab.com/?font=Iosevka&size=16&pause=1000&color=9D7CD8&center=true&vCenter=true&width=435&lines=Cybersecurity%20enthusiast%20and%20web%20hacking%20lover" alt="Texto animado" class="titulo">
-    <img src="./images/Cinnamoroll.jpg" alt="Descripción" class="Cinnamoroll">
+    <!-- Efecto de linterna -->
+    <div class="flashlight-effect" id="flashlight"></div>
 
-<div class="botones">
-  <button class="ctk-button" onclick="loadPage('https://github.com/SelfDreamer/')">GitHub</button>
-  <button class="ctk-button" onclick="showMessage('error', 'Error', 'Actualmente no cuento con Instagram!')">Instagram</button>
-  <button class="ctk-button" onclick="showMessage('warning', 'Error', 'Actualmente no cuento con YouTube!')">YouTube</button>
-</div>
+    <!-- Contenedor para mensajes (no afecta a los widgets) -->
+    <div class="messages-container" id="messagesContainer"></div>
+
+    <!-- Contenedor de widgets -->
+    <div class="widgets-container">
+        <img src="https://readme-typing-svg.demolab.com/?font=Iosevka&size=16&pause=1000&color=9D7CD8&center=true&vCenter=true&width=435&lines=Cybersecurity%20enthusiast%20and%20web%20hacking%20lover" alt="Texto animado" class="titulo">
+        <img src="./images/Cinnamoroll.jpg" alt="Descripción" class="Cinnamoroll">
+
+        <div class="botones">
+            <button class="ctk-button" onclick="loadPage('https://github.com/SelfDreamer/')">GitHub</button>
+            <button class="ctk-button" onclick="showMessage('error', 'Error', 'Actualmente no cuento con Instagram!')">Instagram</button>
+            <button class="ctk-button" onclick="showMessage('warning', 'Error', 'Actualmente no cuento con YouTube!')">YouTube</button>
+        </div>
+    </div>
 
 <script>
-  function loadPage(page){
+    // Script para el efecto de linterna
+    document.addEventListener('DOMContentLoaded', function() {
+        const flashlight = document.getElementById('flashlight');
+        
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        
+        // Seguir movimiento del ratón
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Actualizar efecto de linterna
+            updateFlashlight(mouseX, mouseY);
+        });
+        
+        // Actualizar efecto de linterna
+        function updateFlashlight(x, y) {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            // Calcular posición relativa
+            const posX = (x / width) * 100;
+            const posY = (y / height) * 100;
+            
+            // Crear efecto de linterna con área muy grande y transición suave
+            flashlight.style.background = 
+                `radial-gradient(
+                    circle 1500px at ${posX}% ${posY}%,
+                    rgba(255, 255, 255, 0.07) 0%,
+                    rgba(255, 255, 255, 0.04) 20%,
+                    rgba(255, 255, 255, 0.015) 40%,
+                    transparent 75%
+                ), transparent`;
+        }
+        
+        // Actualizar efecto al cambiar tamaño de ventana
+        window.addEventListener('resize', function() {
+            updateFlashlight(mouseX, mouseY);
+        });
+        
+        // Inicializar efecto
+        updateFlashlight(mouseX, mouseY);
 
-    showMessage('Éxito', 'success', 'La página se cargara en otra ventana')
+        // Efecto adicional: ligero parpadeo natural de linterna
+        setInterval(() => {
+            const randomVariation = Math.random() * 0.02 + 0.98;
+            const currentBackground = flashlight.style.background;
+            if (currentBackground) {
+                const updatedBackground = currentBackground.replace(
+                    /rgba\(255, 255, 255, ([0-9.]+)\)/g, 
+                    (match, opacity) => `rgba(255, 255, 255, ${parseFloat(opacity) * randomVariation})`
+                );
+                flashlight.style.background = updatedBackground;
+            }
+        }, 300);
+    });
 
-    window.open(page, "_blank")
+    function loadPage(page){
+        showMessage('success', 'Éxito', 'La página se cargara en otra ventana');
+        window.open(page, "_blank");
+    }
 
-  }
+    function showMessage(type, title, body) {
+        const messagesContainer = document.getElementById('messagesContainer');
+        messagesContainer.innerHTML += `
+            <message-box 
+                title="${title}"
+                type="${type}"
+                button-text="Ok"
+                body="${body}">
+            </message-box>
+        `;
+    }
 </script>
 
-<script>
-  function showMessage(type, title, body) {
-    document.body.innerHTML += `
-      <message-box 
-        title="${title}"
-        type="${type}"
-        button-text="Ok"
-        body="${body}">
-      </message-box>
-    `;
-  }
-</script>
-
-    </div>    
 </body>
 </html>
