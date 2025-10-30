@@ -8,7 +8,6 @@
     <script src="scripts/message-box.js" type="module"></script>
     <title>Dreamer</title>
     <style>
-        /* Fondo base */
         body::before {
             content: '';
             position: fixed;
@@ -20,7 +19,6 @@
             z-index: -3;
         }
 
-        /* Efecto de linterna */
         .flashlight-effect {
             position: fixed;
             top: 0;
@@ -59,7 +57,6 @@
             position: relative;
         }
 
-        /* Contenedor principal de widgets */
         .widgets-container {
             display: flex;
             flex-direction: column;
@@ -185,7 +182,6 @@
             z-index: 10;
         }
 
-        /* Estilo para el contenedor de mensajes */
         .messages-container {
             position: fixed;
             top: 0;
@@ -204,13 +200,10 @@
 </head>
 <body>
 
-    <!-- Efecto de linterna -->
     <div class="flashlight-effect" id="flashlight"></div>
 
-    <!-- Contenedor para mensajes (no afecta a los widgets) -->
     <div class="messages-container" id="messagesContainer"></div>
 
-    <!-- Contenedor de widgets -->
     <div class="widgets-container">
         <img src="https://readme-typing-svg.demolab.com/?font=Iosevka&size=16&pause=1000&color=9D7CD8&center=true&vCenter=true&width=435&lines=Cybersecurity%20enthusiast%20and%20web%20hacking%20lover" alt="Texto animado" class="titulo">
         <img src="./images/Cinnamoroll.jpg" alt="Descripción" class="Cinnamoroll">
@@ -223,32 +216,26 @@
     </div>
 
 <script>
-    // Script para el efecto de linterna
     document.addEventListener('DOMContentLoaded', function() {
         const flashlight = document.getElementById('flashlight');
         
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
         
-        // Seguir movimiento del ratón
         document.addEventListener('mousemove', function(e) {
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Actualizar efecto de linterna
             updateFlashlight(mouseX, mouseY);
         });
         
-        // Actualizar efecto de linterna
         function updateFlashlight(x, y) {
             const width = window.innerWidth;
             const height = window.innerHeight;
             
-            // Calcular posición relativa
             const posX = (x / width) * 100;
             const posY = (y / height) * 100;
             
-            // Crear efecto de linterna con área muy grande y transición suave
             flashlight.style.background = 
                 `radial-gradient(
                     circle 1500px at ${posX}% ${posY}%,
@@ -259,15 +246,12 @@
                 ), transparent`;
         }
         
-        // Actualizar efecto al cambiar tamaño de ventana
         window.addEventListener('resize', function() {
             updateFlashlight(mouseX, mouseY);
         });
         
-        // Inicializar efecto
         updateFlashlight(mouseX, mouseY);
 
-        // Efecto adicional: ligero parpadeo natural de linterna
         setInterval(() => {
             const randomVariation = Math.random() * 0.02 + 0.98;
             const currentBackground = flashlight.style.background;
