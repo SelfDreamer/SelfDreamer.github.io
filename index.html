@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flick.sh</title>
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    <script src="scripts/message-box.js" type="module"></script>
+    <title>Dreamer</title>
     <style>
         body {
             margin: 0;
@@ -113,33 +116,93 @@
         .badge:active {
             transform: scale(0.95);
         }
+
+      .ctk-button {
+        align-items: center;
+        appearance: none;
+        background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+        border: 0;
+        border-radius: 6px;
+        box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+        color: #fff;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: "JetBrains Mono",monospace;
+        height: 48px;
+        justify-content: center;
+        line-height: 1;
+        list-style: none;
+        overflow: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        transition: box-shadow .15s,transform .15s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        will-change: box-shadow,transform;
+        font-size: 18px;
+        margin-top: 40px
+      }
+
+      .ctk-button:focus {
+        box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+      }
+
+      .ctk-button:hover {
+        box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+        transform: translateY(-2px);
+      }
+
+      .ctk-button:active {
+        box-shadow: #3c4fe0 0 3px 7px inset;
+        transform: translateY(2px);
+      }
+
+      .botones {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
     </style>
 </head>
 <body>
 
     <img src="https://readme-typing-svg.demolab.com/?font=Iosevka&size=16&pause=1000&color=9D7CD8&center=true&vCenter=true&width=435&lines=Cybersecurity%20enthusiast%20and%20web%20hacking%20lover" alt="Texto animado" class="titulo">
     <img src="./images/Cinnamoroll.jpg" alt="Descripción" class="Cinnamoroll">
-    <div class="badge-container">
-        <a href="https://github.com/FlickGMD" target="_blank" class="badge">
-            <img src="https://github.com/fluidicon.png" alt="GitHub Logo">
-            <span>GitHub</span>
-        </a>
-        <a href="https://www.instagram.com/tu_usuario" target="_blank" class="badge instagram">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-            <span>Instagram</span>
-        </a>
-        <a href="https://www.youtube.com/@tu_canal" target="_blank" class="badge youtube">
-            <img src="./images/youtube.png" alt="YouTube Logo">
-            <span>YouTube</span>
-        </a>
+
+<div class="botones">
+  <button class="ctk-button" onclick="loadPage('https://github.com/SelfDreamer/')">GitHub</button>
+  <button class="ctk-button" onclick="showMessage('error', 'Error', 'Actualmente no cuento con Instagram!')">Instagram</button>
+  <button class="ctk-button" onclick="showMessage('warning', 'Error', 'Actualmente no cuento con YouTube!')">YouTube</button>
+</div>
+
+<script>
+  function loadPage(page){
+
+    showMessage('Éxito', 'success', 'La página se cargara en otra ventana')
+
+    window.open(page, "_blank")
+
+  }
+</script>
+
+<script>
+  function showMessage(type, title, body) {
+    document.body.innerHTML += `
+      <message-box 
+        title="${title}"
+        type="${type}"
+        button-text="Ok"
+        body="${body}">
+      </message-box>
+    `;
+  }
+</script>
+
     </div>    
-<div class="switch-container">
-        <label class="switch">
-            <input type="checkbox" id="themeSwitch">
-            <span class="slider"></span>
-        </label>
-    </div>
-    <script src='./scripts/switch.js'></script>
 </body>
 </html>
-
