@@ -84,6 +84,8 @@ function messagebox() {
     strip_ansi() {
         echo -e "$1" | sed -E 's/\x1b(\[[0-9;]*[A-Za-z]|\][^\x1b]*\x1b\\)//g'
     }
+    printf "\e[G"
+
 
     local title_raw="Titulo"
     local content="Message"
